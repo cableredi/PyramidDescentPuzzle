@@ -1,9 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Pyramid from "./Pyramid";
+import Pyramid from "../Components/Pyramid";
 
 export default function InstructionsPage() {
   const exampleArray = [[1], [2, 3], [4, 1, 1]];
+  const examplePlayed = { number: [1, 2, 1], position: ["00", "10", "21"] };
 
   return (
     <section>
@@ -21,7 +22,7 @@ export default function InstructionsPage() {
         </div>
       </div>
 
-      <Pyramid array={exampleArray} />
+      <Pyramid array={exampleArray} played={examplePlayed} />
 
       <div className="header__text">
         A solver for this puzzle should traverse left then right, indicating
@@ -29,10 +30,10 @@ export default function InstructionsPage() {
         the second row, then goes Right to the 1 in the center of the bottom
         row.
       </div>
-      
-      <button>
+
+      <div className="link__button">
         <NavLink to="/puzzle">Get Started</NavLink>
-      </button>
+      </div>
     </section>
   );
 }

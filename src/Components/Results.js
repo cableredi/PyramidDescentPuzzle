@@ -4,30 +4,29 @@ export default function Results(props) {
   const targetAnswer = props.results.targetAnswer;
   const answer = props.results.answer;
   const handleOnClickResults = props.handleOnClickResults;
-  let buttonDisplay = "button_show";
 
   let displayResult = "";
   let buttonText = "";
 
   if (targetAnswer === answer) {
-    console.log('got here')
     displayResult = "CORRECT!";
-    buttonDisplay = "button__dontShow";
+    buttonText = "Next Question";
   } else {
     displayResult = `Sorry, that is not the correct Target of ${targetAnswer}`;
     buttonText = "Try Again?";
   }
 
+  const onClickResults = () => {
+    handleOnClickResults(buttonText);
+  };
+
   return (
     <div className="results">
-      <div>Your Answer: {answer}</div>
-      <div>{displayResult}</div>
-      <button
-        onClick={() => handleOnClickResults("again")}
-        className={buttonDisplay}
-      >
-        {buttonText}
-      </button>
+      <div><strong>Your Answer: </strong>{answer}</div>
+      <div className="results__result">{displayResult}</div>
+      <div className="link__button">
+        <button onClick={() => onClickResults()}>{buttonText}</button>
+      </div>
     </div>
   );
 }

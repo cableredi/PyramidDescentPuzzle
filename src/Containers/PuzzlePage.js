@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { STORE } from "../STORE";
-import Pyramid from "./Pyramid";
-import Navigation from "./Navigation";
-import Results from "./Results";
+import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { GlobalContext } from "../Context/GlobalContext";
+import Pyramid from "../Components/Pyramid";
+import Navigation from "../Components/Navigation";
+import Results from "../Components/Results";
 
 export default function PuzzlePage() {
-  const puzzleArray = STORE.rows;
-  const puzzleTarget = STORE.target;
+  const history = useHistory();
+
+  const { questions, currentQuestion, updateCurrentQuestion } = useContext(
+    GlobalContext
+  );
+
+  const puzzleArray = questions[currentQuestion].rows;
+  const puzzleTarget = questions[currentQuestion].target;
 
   const [currentRow, setCurrentRow] = useState(0);
   const [currentColumn, setCurrentColumn] = useState(0);
@@ -44,10 +51,10 @@ export default function PuzzlePage() {
     let array = played.number;
     array.push(puzzleArray[currentRow + 1][currentColumn]);
     let positionArray = played.position;
-    positionArray.push((currentRow + 1).toString() + (currentColumn).toString());
+    positionArray.push((currentRow + 1).toString() + currentColumn.toString());
     setPlayed({
       number: array,
-      position: positionArray
+      position: positionArray,
     });
 
     checkResults();
@@ -59,10 +66,12 @@ export default function PuzzlePage() {
     let array = played.number;
     array.push(puzzleArray[currentRow + 1][currentColumn + 1]);
     let positionArray = played.position;
-    positionArray.push((currentRow + 1).toString() + (currentColumn + 1).toString());
+    positionArray.push(
+      (currentRow + 1).toString() + (currentColumn + 1).toString()
+    );
     setPlayed({
       number: array,
-      position: positionArray
+      position: positionArray,
     });
 
     checkResults();
@@ -72,18 +81,35 @@ export default function PuzzlePage() {
   };
 
   const onClickResults = (props) => {
-    if (props === "again") {
+    if (props === "Try Again?") {
       setCurrentColumn(0);
       setCurrentRow(0);
       setPlayed({
         number: [puzzleArray[0][0]],
-        position: ["00"]
+        position: ["00"],
       });
       setOpenResults(false);
       setResults({
-        targetAnswer: puzzleTarget,
+        targetAnswer: questions[currentQuestion].target,
         answer: 0,
       });
+    } else {
+      if (currentQuestion < questions.length - 1) {
+        updateCurrentQuestion(currentQuestion + 1);
+        setCurrentColumn(0);
+        setCurrentRow(0);
+        setPlayed({
+          number: [questions[currentQuestion + 1].rows[0][0]],
+          position: ["00"],
+        });
+        setOpenResults(false);
+        setResults({
+          targetAnswer: questions[currentQuestion + 1].target,
+          answer: 0,
+        });
+      } else {
+        history.push("results");
+      }
     }
   };
 

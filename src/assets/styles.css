@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bevan&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bevan&display=swap");
 
 html,
 body,
@@ -19,33 +19,63 @@ body {
 
 a {
   text-decoration: none;
+  color: black;
 }
 
-section {
-  margin: 50px;
+a,
+button {
+  background-color: firebrick;
+  color: white;
+  padding: 1em 1.5em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid black;
 }
 
 button {
-  display: block;
-  margin: 0 auto;
+  margin: 0 30px;
+}
+
+a:hover,
+button:hover {
+  background-color: #555;
+}
+
+a:active,
+button:active {
+  background-color: black;
+}
+
+h1 {
+  margin: 50px 20px;
+  text-align: center;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
 }
 
 .header {
   text-align: center;
-  font-family: 'Bevan', cursive;
-  font-size: 30px;
+  font-family: "Bevan", cursive;
+  font-size: 20px;
 }
 
 .header__text {
   margin: 20px auto;
   font-size: 18px;
-  width: 600px;
+}
+
+.link__button {
+  margin-top: 50px;
+  text-align: center;
 }
 
 .puzzle {
-  text-align: center;
-  margin: 50px 0;
-  font-size: 30px;
+  margin: 30px auto;
+  font-size: 20px;
 }
 
 .pyramid__row {
@@ -62,11 +92,15 @@ button {
 .results {
   margin: 50px auto;
   text-align: center;
-  width: 350px;
+  font-size: 20px;
 }
 
 .results__result {
   text-align: center;
+  margin: 50px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: blue;
 }
 
 .results__button {
@@ -75,18 +109,26 @@ button {
   justify-content: center;
 }
 
-.button__dontShow {
-  display: none;
-}
-
-.button__show {
-  display: block;
-}
-
 .textBlack {
   color: black;
 }
 
 .textRed {
   color: firebrick;
+}
+
+
+@media (min-width: 600px) {
+  .results__result {
+    font-size: 25px;
+  }
+
+  .header {
+    font-size: 30px;
+  }
+
+  .puzzle {
+    margin: 50px auto;
+    font-size: 30px;
+  }
 }
